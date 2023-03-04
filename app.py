@@ -39,7 +39,7 @@ def predictroute():
     if request.method == 'POST':
         base_64 = request.json['sound']
         decodesound(base_64, input_sounds_path)
-        signal = LanguageData().load_data(wave_sounds_path)
+        signal = LanguageData().load_data(input_sounds_path)
         signal.unsqueeze_(0)
         result = predictor.predict_language(input_signal=signal)
         return jsonify({"Result" : result})

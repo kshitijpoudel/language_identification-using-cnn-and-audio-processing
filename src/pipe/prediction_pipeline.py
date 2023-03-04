@@ -22,7 +22,7 @@ class LanguageData:
     def __init__(self):
         try:
             self.dataset_config = CustomDatasetConfig()
-            self.s3_sync = S3Sync()
+            # self.s3_sync = S3Sync()
             self.prediction_config = PredictionPipelineConfig()
         except Exception as e:
             raise CustomException(e,sys)
@@ -70,7 +70,7 @@ class LanguageData:
         try: 
             transformation_folder = self.prediction_config.transformation_download_path
             os.makedirs(os.path.dirname(transformation_folder), exist_ok=True)
-            self.s3_sync.sync_folder_from_s3(folder=transformation_folder, aws_bucket_url=S3_ARTIFACTS_URI)
+            # self.s3_sync.sync_folder_from_s3(folder=transformation_folder, aws_bucket_url=S3_ARTIFACTS_URI)
             transformation_object = os.path.join(transformation_folder, TRANSFORMATION_OBJECT_NAME)
             transformation = load_object(file_path=transformation_object)
             signal, sr = torchaudio.load(audio_data_path)
@@ -104,19 +104,19 @@ class SinglePrediction:
           The path to the model.
         """
         try:
-            s3_model_path = self.prediction_pipeline_config.s3_model_path
-            model_download_path = self.prediction_pipeline_config.model_download_path
-            os.makedirs(model_download_path, exist_ok=True)
-            self.s3_sync.sync_folder_from_s3(folder=model_download_path, aws_bucket_url=s3_model_path)
-            for file in os.listdir(model_download_path):
-                if file.endswith(".pt"):
-                    prediction_model_path = os.path.join(model_download_path, file)
-                    logging.info(f"Production model for prediction found in {prediction_model_path}")
-                    break
-                else:
-                    logging.info("Model is not available in Prediction artifacts")
-                    prediction_model_path = None
-            return prediction_model_path
+            # s3_model_path = self.prediction_pipeline_config.s3_model_path
+            # model_download_path = self.prediction_pipeline_config.model_download_path
+            # os.makedirs(model_download_path, exist_ok=True)
+            # self.s3_sync.sync_folder_from_s3(folder=model_download_path, aws_bucket_url=s3_model_path)
+            # for file in os.listdir(model_download_path):
+            #     if file.endswith(".pt"):
+            #         prediction_model_path = os.path.join(model_download_path, file)
+            #         logging.info(f"Production model for prediction found in {prediction_model_path}")
+            #         break
+            #     else:
+            #         logging.info("Model is not available in Prediction artifacts")
+            #         prediction_model_path = None
+            return r"D:\Rain\Shiva\language_identification-using-cnn-and-audio-processing\bestmodel\model.pt"
         except Exception as e:
             raise CustomException(e, sys)
 

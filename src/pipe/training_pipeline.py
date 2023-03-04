@@ -70,7 +70,7 @@ class TrainingPipeline:
 
             logging.info("Instantiating model trainer class...")
             model_trainer = ModelTrainer(modeltrainer_config=self.model_trainer_config,
-                                         data_preprocessing_artifacts=data_preprocessing_artifacts,
+                                         #optimizer_func= torch.optim.Adam(),
                                          model=model,
                                          train_data=train_data,
                                          test_data=test_data,
@@ -127,11 +127,13 @@ class TrainingPipeline:
             model_trainer_artifacts = self.start_model_training(
                 data_preprocessing_artifacts=data_preprocessing_artifacts)
 
-            model_evaluation_artifacts = self.start_model_evaluation(model_trainer_artifacts=model_trainer_artifacts,
-                                                                     data_preprocessing_artifacts=data_preprocessing_artifacts)
-
-            model_pusher_artifact = self.start_model_pusher(
-                model_evaluation_artifacts=model_evaluation_artifacts)
+            # model_evaluation_artifacts = self.start_model_evaluation(model_trainer_artifacts=model_trainer_artifacts,
+            #                                                          #data_preprocessing_artifacts=data_preprocessing_artifacts
+            #                                                          )
+            
+            print(model_trainer_artifacts)
+            # model_pusher_artifact = self.start_model_pusher(
+            #     model_evaluation_artifacts=model_evaluation_artifacts)
 
             logging.info("<<<< Training pipeline completed >>>>")
         except Exception as e:
